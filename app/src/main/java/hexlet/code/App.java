@@ -19,14 +19,14 @@ public class App implements Callable<Integer> {
     @Parameters(
             index = "0",
             description = "path to first file",
-            paramLabel = "FILE_0"
+            paramLabel = "filepath1"
     )
     private File filepath1;
 
     @Parameters(
             index = "1",
             description = "path to second file",
-            paramLabel = "FILE_1"
+            paramLabel = "filepath2"
     )
     private File filepath2;
 
