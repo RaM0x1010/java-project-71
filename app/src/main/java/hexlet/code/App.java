@@ -4,7 +4,9 @@ import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
+import java.util.Map;
 import java.util.concurrent.Callable;
 
 @Command(
@@ -46,6 +48,11 @@ public class App implements Callable<Integer> {
         System.out.println("  Format: " + format);
         System.out.println("Running gendiff with format: " + format);
         return 0;
+    }
+
+    private Map<String, Object> readAndParseFile(File file) throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.readValue(file, Map.class);
     }
 
     public static void main(String[] args) {
