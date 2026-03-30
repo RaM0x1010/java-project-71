@@ -42,9 +42,11 @@ public class App implements Callable<Integer> {
 
     @Override
     public Integer call() throws Exception {
-        System.out.println("Comparing files:");
-        System.out.println("  File 1: " + filepath1.getAbsolutePath());
-        System.out.println("  File 2: " + filepath2.getAbsolutePath());
+
+        Map<String, Object> data1 = readAndParseFile(filepath1);
+        Map<String, Object> data2 = readAndParseFile(filepath2);
+        System.out.println("  File 1: " + data1);
+        System.out.println("  File 2: " + data2);
         System.out.println("  Format: " + format);
         System.out.println("Running gendiff with format: " + format);
         return 0;
