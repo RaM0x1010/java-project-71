@@ -45,13 +45,10 @@ public class App implements Callable<Integer> {
 
     @Override
     public Integer call() throws Exception {
-
         Map<String, Object> data1 = readAndParseFile(filepath1);
         Map<String, Object> data2 = readAndParseFile(filepath2);
-        System.out.println("  File 1: " + data1);
-        System.out.println("  File 2: " + data2);
-        System.out.println("  Format: " + format);
-        System.out.println("Running gendiff with format: " + format);
+        String diff = generateDiff(data1, data2);
+        System.out.println(diff);
         return 0;
     }
 
@@ -61,8 +58,7 @@ public class App implements Callable<Integer> {
     }
 
     public String generateDiff(Map<String, Object> map1, Map<String, Object> map2) {
-        // Собираем все ключи из обоих Map
-        Set<String> allKeys = new TreeSet<>(); // TreeSet автоматически сортирует по алфавиту
+        Set<String> allKeys = new TreeSet<>();
         allKeys.addAll(map1.keySet());
         allKeys.addAll(map2.keySet());
 
