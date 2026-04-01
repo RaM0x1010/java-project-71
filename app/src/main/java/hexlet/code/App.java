@@ -7,6 +7,9 @@ import picocli.CommandLine.Parameters;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.concurrent.Callable;
 
 @Command(
@@ -55,6 +58,52 @@ public class App implements Callable<Integer> {
     private Map<String, Object> readAndParseFile(File file) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         return mapper.readValue(file, Map.class);
+    }
+
+    public String generateDiff(Map<String, Object> map1, Map<String, Object> map2) {
+        // Собираем все ключи из обоих Map
+        Set<String> allKeys = new TreeSet<>(); // TreeSet автоматически сортирует по алфавиту
+        allKeys.addAll(map1.keySet());
+        allKeys.addAll(map2.keySet());
+
+        StringBuilder result = new StringBuilder();
+        result.append("{\n");
+
+        for (String key : allKeys) {
+            boolean inFirst = map1.containsKey(key);
+            boolean inSecond = map2.containsKey(key);
+            Object value1 = map1.get(key);
+            Object value2 = map2.get(key);
+
+            if (inFirst && inSecond) {
+                if (Objects.equals(value1, value2)) {
+                    result.append("    ").append(key).append(": ").append(formatValue(value1)).append("\n");
+                } else {
+                    result.append("  - ").append(key).append(": ").append(formatValue(value1)).append("\n");
+                    result.append("  + ").append(key).append(": ").append(formatValue(value2)).append("\n");
+                }
+            } else if (inFirst && !inSecond) {
+                result.append("  - ").append(key).append(": ").append(formatValue(value1)).append("\n");
+            } else if (!inFirst && inSecond) {
+                result.append("  + ").append(key).append(": ").append(formatValue(value2)).append("\n");
+            }
+        }
+
+        result.append("}");
+        return result.toString();
+    }
+
+    private String formatValue(Object value) {
+        if (value instanceof String) {
+            return (String) value;
+        } else if (value instanceof Boolean) {
+            return value.toString();
+        } else if (value instanceof Number) {
+            return value.toString();
+        } else if (value == null) {
+            return "null";
+        }
+        return value.toString();
     }
 
     public static void main(String[] args) {
