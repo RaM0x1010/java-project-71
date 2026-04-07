@@ -2,6 +2,7 @@ plugins {
     id("java")
     id("com.github.ben-manes.versions") version "0.53.0"
     id("org.sonarqube") version "7.2.3.7755"
+    id("jacoco")
     application
     checkstyle
 }
@@ -36,4 +37,9 @@ sonar {
         property("sonar.projectKey", "RaM0x1010_java-project-71")
         property("sonar.organization", "ram0x1010")
     }
+}
+
+jacoco {
+    toolVersion = "0.8.14"
+    reportsDirectory = layout.buildDirectory.dir("customJacocoReportDir")
 }
