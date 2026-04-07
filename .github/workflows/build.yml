@@ -35,5 +35,6 @@ jobs:
       - name: Build and analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: /home/runner/work/java-project-71/java-project-71/app/gradlew build sonar --info
+        run: make sonar-test
+        #run: /home/runner/work/java-project-71/java-project-71/app/gradlew build sonar --info
         #run: cd ../../java-project-61/java-project-61/app && ./gradlew clean build sonarqube
