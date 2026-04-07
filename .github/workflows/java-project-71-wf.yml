@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - run: make say-hello
+      - run: make build
       #- name: java-project-71 project check
       #  uses: hexlet/project-action@release
       #  with:
