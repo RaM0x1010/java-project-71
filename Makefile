@@ -12,6 +12,7 @@ clean-install:
 restart: clean-install install run-dist
 sonar-test:
 	cd app/ && gradle build sonar --info
-build:
-	cd app/ && gradle build test checkstyle
+build: checkstyle
+	cd app/ && gradle build test
+
 .PHONY: build
