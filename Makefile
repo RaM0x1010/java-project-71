@@ -1,5 +1,7 @@
 run-dist:
 	cd app/ && ./build/install/app/bin/app
+say-hello:
+	echo "Hello, World!"
 #install:
 #	cd app/ && gradle installDist
 #checkstyle:
