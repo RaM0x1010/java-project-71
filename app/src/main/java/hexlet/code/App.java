@@ -52,7 +52,7 @@ public class App implements Callable<Integer> {
         return 0;
     }
 
-    private Map<String, Object> readAndParseFile(File file) throws Exception {
+    public Map<String, Object> readAndParseFile(File file) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         return mapper.readValue(file, Map.class);
     }
